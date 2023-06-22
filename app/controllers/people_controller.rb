@@ -19,7 +19,7 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params)
     
     if @person.save
-      redirect_to @person
+      redirect_to @person, notice: 'Person saved'
     else
       render :new
     end
