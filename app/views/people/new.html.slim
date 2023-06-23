@@ -1,10 +1,16 @@
 = render 'shared/errors', resource: @person 
 
+= link_to 'Назад', people_path
+
 = form_with model: @person do |f|
   = f.label :name
   = f.text_field :name
+  = f.label :years
+  = f.text_field :years
   = f.label :description
   = f.text_area :description
+  = f.label :family
+  = f.select :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Please select" }
   = f.label :parents
-  = f.select :parents, @person
+  = f.select :parents, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select" }, { multiple: true, size: 4  }
   = f.submit 'Save'

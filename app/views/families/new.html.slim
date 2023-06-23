@@ -1,0 +1,8 @@
+= render 'shared/errors', resource: @family 
+
+= link_to 'Назад', families_path
+
+= form_with model: @family do |f|
+  = f.label :surname
+  = f.text_field :surname
+  = f.submit 'Сохранить'

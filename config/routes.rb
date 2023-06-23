@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "people#index"
+  root "trees#index"
   
-  resources :people
+  resources :people, :families, :trees
 end

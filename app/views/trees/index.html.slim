@@ -1,0 +1,6 @@
+h1 LOTUS
+= link_to 'Люди', people_path
+= link_to 'Семьи', families_path
+= label_tag  :family
+= select_tag :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Please select" }
+svg id="svg"

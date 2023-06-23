@@ -10,6 +10,8 @@ class PeopleController < ApplicationController
   
   def new
     @person = Person.new
+    @people = Person.all
+    @families = Family.all
   end
 
   def edit
@@ -19,8 +21,10 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params)
     
     if @person.save
-      redirect_to @person, notice: 'Person saved'
+      redirect_to people_path, notice: 'Person saved'
     else
+      @people = Person.all
+      @families = Family.all
       render :new
     end
   end

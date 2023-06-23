@@ -1,0 +1,6 @@
+h1 Семьи
+= link_to 'Назад', trees_path
+p = link_to 'New families', new_family_path
+
+- @families.each do |family|
+  p = "#{family.surname} #{family.people_ids}"
