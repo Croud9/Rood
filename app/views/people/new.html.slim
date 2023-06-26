@@ -1,6 +1,6 @@
 = render 'shared/errors', resource: @person 
 
-= link_to 'Назад', people_path
+= link_to 'Назад', people_path, class: 'btn'
 
 = form_with model: @person do |f|
   = f.label :name
@@ -13,4 +13,4 @@
   = f.select :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Please select" }
   = f.label :parents
   = f.select :parents, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select" }, { multiple: true, size: 4  }
-  = f.submit 'Save'
+  = f.submit 'Save', class: 'btn'

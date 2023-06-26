@@ -1,6 +1,16 @@
-h1 Люди
-= link_to 'Назад', trees_path
-p = link_to 'New person', new_person_path
+h3 Люди
+= link_to 'Назад', trees_path, class: 'btn'
+p = link_to 'New person', new_person_path, class: 'btn'
 
-- @people.each do |person|
-  p = "#{person.name} #{person.description}"
+table
+  thead
+    tr
+      th ФИО
+      th Описание
+      th
+  tbody
+    - @people.each do |person|
+      tr
+        td = link_to "#{person.name}", person
+        td = "#{person.description}"
+        td = link_to 'Удалить', person, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }

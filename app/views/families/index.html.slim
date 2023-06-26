@@ -1,6 +1,16 @@
-h1 Семьи
-= link_to 'Назад', trees_path
-p = link_to 'New families', new_family_path
+h3 Семьи
+= link_to 'Назад', trees_path, class: 'btn'
+p = link_to 'New families', new_family_path, class: 'btn'
 
-- @families.each do |family|
-  p = "#{family.surname} #{family.people_ids}"
+table
+  thead
+    tr
+      th Семья
+      th Люди
+      th
+  tbody
+    - @families.each do |family|
+      tr
+        td = "#{family.surname}"
+        td = "#{family.people_ids}"
+        td = link_to 'Удалить', family, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }

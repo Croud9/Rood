@@ -11,10 +11,13 @@ import Snap from "snapsvg-cjs"
 // function onSVGLoaded( data ){ 
 //   svg.append( data );
 // }
+document.addEventListener("turbo:load", function() { 
+  if (document.getElementById("svg") !== null) {
+    var s = Snap("#svg");
+    var l = Snap.load("familytree.svg", onSVGLoaded ) ;
 
-var s = Snap("#svg");
-var l = Snap.load("familytree.svg", onSVGLoaded ) ;
-
-function onSVGLoaded( data ){ 
-    s.append( data );
-}
+    function onSVGLoaded( data ){ 
+        s.append( data );
+    }
+  }
+});

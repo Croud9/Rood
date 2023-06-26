@@ -39,7 +39,7 @@ class PeopleController < ApplicationController
 
   def destroy
     @person.destroy
-    redirect_to people_path
+    redirect_to people_path, notice: 'Человек удален'
   end
 
   private
