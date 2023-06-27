@@ -7,10 +7,24 @@ table
     tr
       th ФИО
       th Описание
+      th Р
+      th С
+      th Семья
+      th Родители
       th
   tbody
     - @people.each do |person|
       tr
         td = link_to "#{person.name}", person
         td = "#{person.description}"
+        td = "#{person.birth_date}"
+        td = "#{person.death_date}"
+        td = "#{Family.find(person.family).surname if person.family.present?}"
+        - if person.parents.present?
+          - name_parents = ""
+          - person.parents.each do |parent|
+            - name_parents += "#{ Person.where(id: parent).exists? ? Person.find(parent).name : 'Человек удален' } "
+          td = "#{name_parents}"
+        - else 
+          td = "-"
         td = link_to 'Удалить', person, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }

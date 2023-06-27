@@ -12,5 +12,5 @@ table
     - @families.each do |family|
       tr
         td = "#{family.surname}"
-        td = "#{family.people_ids}"
+        td = "#{ Person.where(family: family.id.to_s).map { |p| p.name } }"
         td = link_to 'Удалить', family, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }
