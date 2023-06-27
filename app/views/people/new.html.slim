@@ -13,6 +13,10 @@
   = f.text_area :description
   = f.label :family
   = f.select :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Please select" }
-  = f.label :parents
-  = f.select :parents, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select", include_hidden: false  }, { multiple: true, size: 4 }
+  = f.label :father
+  = f.select :father, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
+  = f.label :mother
+  = f.select :mother, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
+  = f.label :married_on
+  = f.select :married_on, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
   = f.submit 'Save', class: 'btn'

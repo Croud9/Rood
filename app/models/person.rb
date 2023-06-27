@@ -6,7 +6,9 @@ class Person
   field :birth_date, type: String
   field :death_date, type: String
   field :family, type: String
-  field :parents, type: Array
+  field :father, type: String
+  field :mother, type: String
+  field :married_on, type: String
 
   
   validates :name, presence: true

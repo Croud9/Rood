@@ -1,7 +1,7 @@
-h3 Фамильное дерево
+h3 TREE
 = link_to 'Люди', people_path, class: 'btn'
 = link_to 'Семьи', families_path, class: 'btn'
 = label_tag  :family
 = select_tag :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Выберите" }
-svg id="svg"
 p id='info_people'
+svg id="svg" 
