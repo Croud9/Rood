@@ -5,11 +5,18 @@ class TreesController < ApplicationController
 
   def get_family
     @people = ''
+    arr_people = []
+    # Person.all.each do |p|
+    #   arr_people << {id: p.id.to_s, name: p.name, parent: p.father}
+    # end
+
     people = Person.where(family: params[:id])
     people.each do |p|
+      arr_people << {id: p.id.to_s, name: p.name, parent: p.father, mother: p.mother}
+      # arr_people << {id: p.id.to_s, name: p.name, parent: p.mother}
       @people += "#{p.name} "
       children = ''
-      people.where(father: p.id).and(people.where(mother: p.id)).each do |p|
+      people.where(father: p.id).or(people.where(mother: p.id)).each do |p|
         children += "#{ p.name } "
       end
       @people += "Дети: [#{ children }]"
@@ -17,6 +24,7 @@ class TreesController < ApplicationController
     end
     respond_to do |format|
       format.js
+      format.json { render json: arr_people }
     end
   end
 end
