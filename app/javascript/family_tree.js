@@ -110,9 +110,21 @@ document.addEventListener("turbo:load", function() {
 
         // console.log('---')
         return !(v.parent && map[v.parent].children.push(v) && v.mother && map[v.mother].children.push(v))
-        // return !(v.parent && map[v.parent] && v.mother && map[v.mother])
+        // return (v.parent && v.mother)
       })
+      console.log(tree)
 
+      // let ids = [];
+
+      // let newCollection = tree.filter(el => {
+      //   if (ids.includes(el.children)) {
+      //     return false;
+      //   }
+      //   ids.push(el.children);
+        
+      //   return true;
+      // })
+      // console.log(newCollection)
       // const tree2 = tree.filter(function(v) {
       //   const rr = v
       //   tree.map(function(f) {
@@ -120,248 +132,9 @@ document.addEventListener("turbo:load", function() {
       //   } )
       // })
       // console.log(tree2)
-      console.log(tree)
       return tree
     }
 
   }
 });
 
-
-[
-  {
-      "id": "649a93960da1553e8c6032ee",
-      "name": "Иванов Иван Иванович",
-      "parent": null,
-      "mother": null,
-      "partner": null,
-      "children": [
-          {
-              "id": "649ab5290da15544959a5ed4",
-              "name": "Ivanov Курля Иванович",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": []
-          },
-          {
-              "id": "649d983f0da155034c4eb2f1",
-              "name": "Иванова Марья Карнизовна",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": [
-                  {
-                      "id": "649d98c70da155034c4eb2f3",
-                      "name": "Курунков Кирпес",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  },
-                  {
-                      "id": "649d98f20da155034c4eb2f4",
-                      "name": "Курункова Гипера",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  }
-              ]
-          }
-      ]
-  },
-  {
-      "id": "649a93ea0da1553e8c6032ef",
-      "name": "Иванова Ивана Ивановна",
-      "parent": null,
-      "mother": null,
-      "partner": null,
-      "children": [
-          {
-              "id": "649ab5290da15544959a5ed4",
-              "name": "Ivanov Курля Иванович",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": []
-          },
-          {
-              "id": "649d983f0da155034c4eb2f1",
-              "name": "Иванова Марья Карнизовна",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": [
-                  {
-                      "id": "649d98c70da155034c4eb2f3",
-                      "name": "Курунков Кирпес",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  },
-                  {
-                      "id": "649d98f20da155034c4eb2f4",
-                      "name": "Курункова Гипера",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  }
-              ]
-          }
-      ]
-  },
-  {
-      "id": "649a94130da1553e8c6032f0",
-      "name": "Иванов Иоан Иванович",
-      "parent": null,
-      "mother": null,
-      "partner": null,
-      "children": []
-  },
-  {
-      "id": "649d98920da155034c4eb2f2",
-      "name": "Курунков Павел",
-      "parent": "",
-      "mother": "",
-      "partner": null,
-      "children": [
-          {
-              "id": "649d98c70da155034c4eb2f3",
-              "name": "Курунков Кирпес",
-              "parent": "649d98920da155034c4eb2f2",
-              "mother": "649d983f0da155034c4eb2f1",
-              "partner": null,
-              "children": []
-          },
-          {
-              "id": "649d98f20da155034c4eb2f4",
-              "name": "Курункова Гипера",
-              "parent": "649d98920da155034c4eb2f2",
-              "mother": "649d983f0da155034c4eb2f1",
-              "partner": null,
-              "children": []
-          }
-      ]
-  }
-][
-  {
-      "id": "649a93960da1553e8c6032ee",
-      "name": "Иванов Иван Иванович",
-      "parent": null,
-      "mother": null,
-      "partner": null,
-      "children": [
-          {
-              "id": "649ab5290da15544959a5ed4",
-              "name": "Ivanov Курля Иванович",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": []
-          },
-          {
-              "id": "649d983f0da155034c4eb2f1",
-              "name": "Иванова Марья Карнизовна",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": [
-                  {
-                      "id": "649d98c70da155034c4eb2f3",
-                      "name": "Курунков Кирпес",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  },
-                  {
-                      "id": "649d98f20da155034c4eb2f4",
-                      "name": "Курункова Гипера",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  }
-              ]
-          }
-      ]
-  },
-  {
-      "id": "649a93ea0da1553e8c6032ef",
-      "name": "Иванова Ивана Ивановна",
-      "parent": null,
-      "mother": null,
-      "partner": null,
-      "children": [
-          {
-              "id": "649ab5290da15544959a5ed4",
-              "name": "Ivanov Курля Иванович",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": []
-          },
-          {
-              "id": "649d983f0da155034c4eb2f1",
-              "name": "Иванова Марья Карнизовна",
-              "parent": "649a93960da1553e8c6032ee",
-              "mother": "649a93ea0da1553e8c6032ef",
-              "partner": null,
-              "children": [
-                  {
-                      "id": "649d98c70da155034c4eb2f3",
-                      "name": "Курунков Кирпес",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  },
-                  {
-                      "id": "649d98f20da155034c4eb2f4",
-                      "name": "Курункова Гипера",
-                      "parent": "649d98920da155034c4eb2f2",
-                      "mother": "649d983f0da155034c4eb2f1",
-                      "partner": null,
-                      "children": []
-                  }
-              ]
-          }
-      ]
-  },
-  {
-      "id": "649a94130da1553e8c6032f0",
-      "name": "Иванов Иоан Иванович",
-      "parent": null,
-      "mother": null,
-      "partner": null,
-      "children": []
-  },
-  {
-      "id": "649d98920da155034c4eb2f2",
-      "name": "Курунков Павел",
-      "parent": "",
-      "mother": "",
-      "partner": null,
-      "children": [
-          {
-              "id": "649d98c70da155034c4eb2f3",
-              "name": "Курунков Кирпес",
-              "parent": "649d98920da155034c4eb2f2",
-              "mother": "649d983f0da155034c4eb2f1",
-              "partner": null,
-              "children": []
-          },
-          {
-              "id": "649d98f20da155034c4eb2f4",
-              "name": "Курункова Гипера",
-              "parent": "649d98920da155034c4eb2f2",
-              "mother": "649d983f0da155034c4eb2f1",
-              "partner": null,
-              "children": []
-          }
-      ]
-  }
-]
