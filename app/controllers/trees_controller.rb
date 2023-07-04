@@ -12,7 +12,15 @@ class TreesController < ApplicationController
 
     people = Person.where(family: params[:id])
     people.each do |p|
-      arr_people << {id: p.id.to_s, name: p.name, parent: p.father, mother: p.mother}
+      arr_people << {
+        id: p.id.to_s, 
+        name: p.name, 
+        parent: p.father, 
+        mother: p.mother,
+        partners: p.married_on.present? ? p.married_on : [],
+        birth_date: p.birth_date,
+        death_date: p.death_date,
+      }
       # arr_people << {id: p.id.to_s, name: p.name, parent: p.mother}
       @people += "#{p.name} "
       children = ''

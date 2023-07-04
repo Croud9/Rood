@@ -2,82 +2,43 @@ import Snap from "snapsvg-cjs"
 
 import svgPanZoom from "svg-pan-zoom"
 
-// var svg = Snap("#svg");
-
-// var height = svg.node.clientHeight;
-// var width = svg.node.clientWidth;
-// svg.attr({ viewBox: '0 0' + ' ' + width + ' ' +  height});
-
-// var l = Snap.load("familytree.svg", onSVGLoaded ) ;
-
-// function onSVGLoaded( data ){ 
-//   svg.append( data );
-// }
 document.addEventListener("turbo:load", function() { 
   if (document.getElementById("svg") !== null) {
-
-    
-    
     
     $('#family').change(get_family);
-    var svg = Snap("#svg");
+    var svg = Snap('#svg');
     // var panZoomTiger = svgPanZoom('#svg')
     var height = svg.node.clientHeight;
     var width = svg.node.clientWidth;
     svg.attr({ viewBox: 0 + ' ' + 0 + ' ' + width + ' ' +  height });
     svg.clear()
-
-    // draw_some()
-    const h_offset = 150
-    const bbox1 = draw_box((width / 3), 50)
-    const bbox4 = draw_box(bbox1.x2 + 100, bbox1.y + 20)
-    const bbox2 = draw_box(bbox1.x - 100, bbox1.height + h_offset)
-    const bbox3 = draw_box(bbox2.x2 + 100, bbox1.height + h_offset)
-    draw_box(bbox3.x2 + 100, bbox1.height + h_offset)
-
-    const path = svg.path(`M${ bbox1.x + bbox1.width / 2} ${ bbox1.y2 }L${  bbox2.x + bbox2.width / 2} ${ bbox2.y }`).attr({ stroke: "#000", strokeWidth: 2 });
-    const path2 = svg.path(`M${ bbox1.x + bbox1.width / 2} ${ bbox1.y2 }L${  bbox3.x + bbox2.width / 2} ${ bbox3.y }`).attr({ stroke: "#000", strokeWidth: 2 });
-
+    // var all_elements = svg.g()
+    // var svgElement = document.querySelector('#svg')
+    // var panZoomTiger = svgPanZoom(svgElement)
+    // var panZoomTiger = svgPanZoom('#svg');
 
     function onSVGLoaded( data ){ 
       svg.append( data );
     }
 
-    function draw_some() {
-      var height = svg.node.clientHeight;
-      var width = svg.node.clientWidth;
-      svg.attr({ viewBox: 0 + ' ' + 0 + ' ' + width + ' ' +  height });
-      svg.clear()
-      const tree = svg.group()
-      const father = svg.rect((width / 3), 0, 400, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 })
-      const father_box = father.getBBox();
-      const mother = svg.rect(father_box.x2 + 50, father_box.y, 400, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 })
-      const child1 = svg.rect(father_box.x - 50, father_box.y2 + 100, 400, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 })
-
-      const mother_box = mother.getBBox();
-      const child1_box = child1.getBBox();
-
-      console.log(father_box)
-      const name = svg.text(father_box.x2 - 200, father_box.y2 - 50, "Snap Snapovich Snapoff");
-      const path = svg.path(`M${ father_box.x2 - 200 } ${ father_box.y2 }L${ child1_box.x2 - 200} ${ child1_box.y }`).attr({ stroke: "#000", strokeWidth: 2 });
-      const path2 = svg.path(`M${ mother_box.x2 - 200 } ${ mother_box.y2 }L${ child1_box.x2 - 200} ${ child1_box.y }`).attr({ stroke: "#000", strokeWidth: 2 });
-      tree.add(father, mother, child1, path, name, path2)
-
-      // tree.transform('s' + 0.75 + ' 0 0');
-
+    function draw_box(x, y, name, birth, death) {
+      const rect_with_text = svg.rect(x, y, 300, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 })
+      const bb_rect = rect_with_text.getBBox();
+      const text = svg.text(bb_rect.x + 10, bb_rect.y + 20, name);
+      const b_date = svg.text(bb_rect.x + 10, bb_rect.y2 - 10, "*" + birth + ' ' + "†" + death);
+      // all_elements.add(rect_with_text, text, b_date)
+      return bb_rect
     };
 
-    function draw_box(x, y) {
-      const all_text = svg.group()
-      const text = svg.text(x, y, "Wnap Vnaprch Bnapoff");
-      const bb_name = text.getBBox();
-      const b_date = svg.text(bb_name.x - 60, bb_name.y + 60, "*01.01.1120");
-      const d_date = svg.text(bb_name.x + 150, bb_name.y + 60, "†01.01.1200");
-      all_text.add(text, b_date, d_date)
-
-      const bb = all_text.getBBox();
-      const rect_with_text = svg.rect(bb.x - 5, bb.y - 5, bb.width + 10, bb.height + 10, 10).attr({ fill: "#fc0", fillOpacity: 0.5 })
-      return rect_with_text.getBBox()
+    function draw_family(start_x, start_y, partner, partner2, line_from_parents = null) {
+      const h_offset = 150
+      const bbox1 = draw_box(start_x, start_y, partner.name, partner.birth_date, partner.death_date)
+      const bbox2 = draw_box(bbox1.x2 + 100, bbox1.y, partner2.name, partner2.birth_date, partner2.death_date)
+      if (line_from_parents) svg.path(`M${ line_from_parents.x2} ${ line_from_parents.y2 }L${ bbox1.x + 150 } ${ bbox1.y }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox(); 
+      const connect_partners = svg.path(`M${ bbox1.x2} ${ bbox1.y + 50 }L${  bbox2.x} ${ bbox2.y + 50 }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox();
+      const connect_for_child = svg.path(`M${ connect_partners.x + connect_partners.width / 2} ${ connect_partners.y2 }v${ 100 }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox();
+      // all_elements.add(bbox1, bbox2, connect_partners, connect_for_child)
+      return [bbox1, connect_for_child]
     };
 
     function get_family() {
@@ -87,52 +48,73 @@ document.addEventListener("turbo:load", function() {
           dataType: "json",
           data: { id: $("#family option:selected").val() },
           success: function(data) {
-            // console.log(data)
             test2( data )
-            // test2( data[1] )
+            // var panZoomTiger = svgPanZoom('#svg');
+            // svg.transform('s' + 0.75 + ' 0 0');
+            // svg.g(svg.selectAll())
+            var svgElement = document.getElementById('svg')
+            var panZoomTiger = svgPanZoom(svgElement)
+            console.log(svg.selectAll())
           },
         });
       };
     };
 
     function test2( arr ) {
+      svg.clear()
 
-      const map = Object.assign({} , ...arr.map(v => 
-        ({ [v.id]: Object.assign(v, { partner: null, children: [] }) })
+      const people = Object.assign({} , ...arr.map(v => 
+        ({ [v.id]: Object.assign(v, { children: [] }) })
       ))
-      console.log(map)
-    
-      const tree = Object.values(map).filter(function(v) {
-        // console.log('-+-')
-        // console.log(!(v.parent && map[v.parent].children.push(v)))
-        // console.log(v.parent)
-        // console.log(map[v.parent])
+      console.log(people)
 
-        // console.log('---')
-        return !(v.parent && map[v.parent].children.push(v) && v.mother && map[v.mother].children.push(v))
-        // return (v.parent && v.mother)
+      const trees = Object.values(people).filter(function(v) {
+        return !(v.parent && people[v.parent].children.push(v) && v.mother && people[v.mother].children.push(v))
       })
-      console.log(tree)
+      console.log(trees)
 
-      // let ids = [];
-
-      // let newCollection = tree.filter(el => {
-      //   if (ids.includes(el.children)) {
-      //     return false;
-      //   }
-      //   ids.push(el.children);
+      const last_ids = []
+      trees.forEach(tree => {
         
-      //   return true;
-      // })
-      // console.log(newCollection)
-      // const tree2 = tree.filter(function(v) {
-      //   const rr = v
-      //   tree.map(function(f) {
-      //     if (rr.parent.children == f.parent.children) return f
-      //   } )
-      // })
-      // console.log(tree2)
-      return tree
+        if ( tree.partners.length != 0 && !last_ids.includes(tree.id) ) {
+          if ( tree.partners.length == 1 ) {
+            const partner = people[tree.partners[0]];
+            if (partner.children.length == tree.children.length) {
+              last_ids.push(partner.id)
+              console.log('-Родитель ' + tree.name)
+              console.log('-Родитель ' + partner.name)
+              const [left_box, connect_for_child] = draw_family((width / 4), 50, tree, partner)
+              draw_child(partner, people, last_ids, left_box, connect_for_child)
+              console.log('-------')
+            }
+          } else {
+            'pass'
+          };
+        } else if ( !last_ids.includes(tree.id) ) {
+          console.log('Одиночка ' + tree.name)
+          const bbox1 = draw_box(-25 , 50, tree.name, tree.birth_date, tree.death_date)
+        }
+      })
+      return trees
+    }
+
+    function draw_child(partner, people, last_ids, box, line_from_parents) {
+      partner.children.forEach(child => {
+        if (child.partners.length > 0 ) {
+          const partner = people[child.partners[0]];
+          if (partner.children.length == child.children.length) {
+            last_ids.push(partner.id)
+            console.log('--Родитель ' + child.name)
+            console.log('---Родитель ' + partner.name)
+            const [left_box, connect_for_child] = draw_family(box.x, box.y2 + 150, child, partner, line_from_parents)
+            draw_child(partner, people, last_ids, left_box, connect_for_child)
+          }
+        } else {
+          console.log('--Ребенок ' + child.name)
+          const bbox1 = draw_box(box.x - 425 , box.y2 + 150, child.name, child.birth_date, child.death_date)
+          svg.path(`M${ line_from_parents.x2} ${ line_from_parents.y2 }L${ bbox1.x + 150 } ${ bbox1.y }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox();
+        }
+      })
     }
 
   }

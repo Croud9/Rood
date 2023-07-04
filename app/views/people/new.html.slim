@@ -18,5 +18,5 @@
   = f.label :mother
   = f.select :mother, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
   = f.label :married_on
-  = f.select :married_on, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
+  = f.select :married_on, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select", include_hidden: false }, { multiple: true, size: 4}
   = f.submit 'Save', class: 'btn'

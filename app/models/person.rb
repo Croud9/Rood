@@ -8,7 +8,7 @@ class Person
   field :family, type: String
   field :father, type: String
   field :mother, type: String
-  field :married_on, type: String
+  field :married_on, type: Array
 
   
   validates :name, presence: true
