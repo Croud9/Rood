@@ -11,21 +11,28 @@ document.addEventListener("turbo:load", function() {
     var height = svg.node.clientHeight;
     var width = svg.node.clientWidth;
     svg.attr({ viewBox: 0 + ' ' + 0 + ' ' + width + ' ' +  height });
-    svg.clear()
-    // var all_elements = svg.g()
-    // var svgElement = document.querySelector('#svg')
-    // var panZoomTiger = svgPanZoom(svgElement)
-    // var panZoomTiger = svgPanZoom('#svg');
+    var pan_zoom = svgPanZoom('#svg', {
+      zoomEnabled: true,
+      zoomScaleSensitivity: 0.2,
+      controlIconsEnabled: false
+    });
+    const group_panZoom = svg.selectAll('.svg-pan-zoom_viewport')
 
+    window.addEventListener('resize', function(event) {
+      pan_zoom.resize();
+      pan_zoom.center(); // fit works as expected
+
+    }, true);
+    
     function onSVGLoaded( data ){ 
       svg.append( data );
     }
 
     function draw_box(x, y, name, birth, death) {
-      const rect_with_text = svg.rect(x, y, 300, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 })
+      const rect_with_text = svg.rect(x, y, 300, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 }).addClass('snap_elm')
       const bb_rect = rect_with_text.getBBox();
-      const text = svg.text(bb_rect.x + 10, bb_rect.y + 20, name);
-      const b_date = svg.text(bb_rect.x + 10, bb_rect.y2 - 10, "*" + birth + ' ' + "†" + death);
+      const text = svg.text(bb_rect.x + 10, bb_rect.y + 20, name).addClass('snap_elm');
+      const b_date = svg.text(bb_rect.x + 10, bb_rect.y2 - 10, "*" + birth + ' ' + "†" + death).addClass('snap_elm');
       // all_elements.add(rect_with_text, text, b_date)
       return bb_rect
     };
@@ -34,9 +41,9 @@ document.addEventListener("turbo:load", function() {
       const h_offset = 150
       const bbox1 = draw_box(start_x, start_y, partner.name, partner.birth_date, partner.death_date)
       const bbox2 = draw_box(bbox1.x2 + 100, bbox1.y, partner2.name, partner2.birth_date, partner2.death_date)
-      if (line_from_parents) svg.path(`M${ line_from_parents.x2} ${ line_from_parents.y2 }L${ bbox1.x + 150 } ${ bbox1.y }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox(); 
-      const connect_partners = svg.path(`M${ bbox1.x2} ${ bbox1.y + 50 }L${  bbox2.x} ${ bbox2.y + 50 }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox();
-      const connect_for_child = svg.path(`M${ connect_partners.x + connect_partners.width / 2} ${ connect_partners.y2 }v${ 100 }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox();
+      if (line_from_parents) svg.path(`M${ line_from_parents.x2} ${ line_from_parents.y2 }L${ bbox1.x + 150 } ${ bbox1.y }`).attr({ stroke: "#000", strokeWidth: 2 }).addClass('snap_elm').getBBox(); 
+      const connect_partners = svg.path(`M${ bbox1.x2} ${ bbox1.y + 50 }L${  bbox2.x} ${ bbox2.y + 50 }`).attr({ stroke: "#000", strokeWidth: 2 }).addClass('snap_elm').getBBox();
+      const connect_for_child = svg.path(`M${ connect_partners.x + connect_partners.width / 2} ${ connect_partners.y2 }v${ 100 }`).attr({ stroke: "#000", strokeWidth: 2 }).addClass('snap_elm').getBBox();
       // all_elements.add(bbox1, bbox2, connect_partners, connect_for_child)
       return [bbox1, connect_for_child]
     };
@@ -49,20 +56,20 @@ document.addEventListener("turbo:load", function() {
           data: { id: $("#family option:selected").val() },
           success: function(data) {
             test2( data )
-            // var panZoomTiger = svgPanZoom('#svg');
-            // svg.transform('s' + 0.75 + ' 0 0');
-            // svg.g(svg.selectAll())
-            var svgElement = document.getElementById('svg')
-            var panZoomTiger = svgPanZoom(svgElement)
-            console.log(svg.selectAll())
+            const all_elm = svg.selectAll('.snap_elm')
+            group_panZoom[0].add(all_elm)
+            pan_zoom.updateBBox(); // Update viewport bounding box
+            pan_zoom.center(); // fit works as expected
+            if (all_elm.length > 3) pan_zoom.fit(); // fit works as expected
+            
           },
         });
       };
     };
 
     function test2( arr ) {
-      svg.clear()
-
+      // svg.clear()
+      svg.selectAll('.snap_elm').remove()
       const people = Object.assign({} , ...arr.map(v => 
         ({ [v.id]: Object.assign(v, { children: [] }) })
       ))
@@ -112,7 +119,7 @@ document.addEventListener("turbo:load", function() {
         } else {
           console.log('--Ребенок ' + child.name)
           const bbox1 = draw_box(box.x - 425 , box.y2 + 150, child.name, child.birth_date, child.death_date)
-          svg.path(`M${ line_from_parents.x2} ${ line_from_parents.y2 }L${ bbox1.x + 150 } ${ bbox1.y }`).attr({ stroke: "#000", strokeWidth: 2 }).getBBox();
+          svg.path(`M${ line_from_parents.x2} ${ line_from_parents.y2 }L${ bbox1.x + 150 } ${ bbox1.y }`).attr({ stroke: "#000", strokeWidth: 2 }).addClass('snap_elm').getBBox();
         }
       })
     }

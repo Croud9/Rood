@@ -55,3 +55,9 @@ table {
     border-radius: 0 0 8px 0;
   }
 }
+
+.block {
+  // box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 1px 0  #cfcfcf, 0 2px 5px 0  #cfcfcf;
+  border-radius: 10px;
+}
