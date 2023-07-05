@@ -16,6 +16,6 @@ feature 'User can' do
     Family.create(surname: 'Коряевы') 
     visit trees_path
     select 'Коряевы', from: 'Family'
-    
+    find('#svg')
   end
 end

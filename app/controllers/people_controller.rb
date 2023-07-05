@@ -15,6 +15,9 @@ class PeopleController < ApplicationController
   end
 
   def edit
+    @person = Person.find(params[:id])
+    @people = Person.all
+    @families = Family.all
   end
 
   def create 
@@ -39,7 +42,7 @@ class PeopleController < ApplicationController
 
   def destroy
     @person.destroy
-    redirect_to people_path
+    redirect_to people_path, notice: 'Человек удален'
   end
 
   private
@@ -49,6 +52,6 @@ class PeopleController < ApplicationController
   end
 
   def person_params
-    params.require(:person).permit(:name, :description)
+    params.require(:person).permit(:name, :description, :birth_date, :death_date, :family, :father, :mother, married_on: [])
   end
 end

@@ -45,6 +45,13 @@ feature 'User can create person' do
 end
 
 feature 'User can' do 
-  scenario 'delete person'
+  scenario 'delete person' do
+    Person.create(name: 'Иван', description: 'jujujujuju')
+    visit people_path
+    click_on 'Удалить'
+    
+    expect(page).to have_content 'Человек удален'
+  end
+  
   scenario 'update person'
 end
