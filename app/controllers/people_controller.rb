@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
   before_action :load_person, only: [:show, :edit, :update, :destroy]
 
   def index
-    @people = Person.all
+    @people = Person.all.order_by(family: :desc)
   end
 
   def show
