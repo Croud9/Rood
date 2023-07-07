@@ -2,21 +2,4 @@
 
 = link_to 'Назад', people_path, class: 'btn'
 
-= form_with model: @person do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :birth_date
-  = f.text_field :birth_date
-  = f.label :death_date
-  = f.text_field :death_date
-  = f.label :description
-  = f.text_area :description
-  = f.label :family
-  = f.select :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Please select" }
-  = f.label :father
-  = f.select :father, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
-  = f.label :mother
-  = f.select :mother, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select"}
-  = f.label :married_on
-  = f.select :married_on, options_from_collection_for_select(@people, :id, :name), { prompt: "Please select", include_hidden: false }, { multiple: true, size: 4}
-  = f.submit 'Save', class: 'btn'
+= render 'form'

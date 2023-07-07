@@ -1,0 +1,29 @@
+= form_with class: "form-style", model: @person do |f|
+  h1 Новый человек
+  ul
+    li
+      = f.label :name, 'ФИО'
+      = f.text_field :name
+    li
+      = f.label :birth_date, 'Дата рождения'
+      = f.text_field :birth_date
+    li
+      = f.label :death_date, 'Дата смерти'
+      = f.text_field :death_date
+    li
+      = f.label :description, 'Описание'
+      = f.text_area :description
+    li
+      = f.label :family, 'Семья'
+      = f.select :family, options_from_collection_for_select(@families, :id, :surname, @person.family), { prompt: "Please select" }
+    li
+      = f.label :father, 'Отец'
+      = f.select :father, options_from_collection_for_select(@people, :id, :name, @person.father), { prompt: "Please select"}
+    li
+      = f.label :mother, 'Мать'
+      = f.select :mother, options_from_collection_for_select(@people, :id, :name, @person.mother), { prompt: "Please select"}
+    li
+      = f.label :married_on, 'В браке с'
+      = f.select :married_on, options_from_collection_for_select(@people, :id, :name, @person.married_on), { prompt: "Please select", include_hidden: false }, { multiple: true, size: 10}
+    li      
+      = f.submit 'Сохранить', class: 'btn'

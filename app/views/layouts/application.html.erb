@@ -12,7 +12,13 @@
 
   <body>
     <header>
-      <h2>L O T U S</h2>
+      <h2><%= link_to 'L O T U S', trees_path %></h2>
+      <nav class="menu menu-1">
+        <ul>
+          <li><%= link_to 'Люди', people_path%></li>
+          <li><%= link_to 'Семьи', families_path%></li>
+        </ul>
+      </nav>
     </header>
     <div class="main"> 
       <p class="notice"><%= notice %></p>
