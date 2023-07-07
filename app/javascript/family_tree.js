@@ -23,6 +23,7 @@ document.addEventListener("turbo:load", function() {
     const group_panZoom = svg.selectAll('.svg-pan-zoom_viewport')
     
     function get_family() {
+      $('#loader').fadeTo(500, 1);
       if ($('#family:selected').text() != "Выберите") {
         $.ajax({
           url: "get_family",
@@ -35,6 +36,9 @@ document.addEventListener("turbo:load", function() {
             pan_zoom.updateBBox(); 
             pan_zoom.center(); 
             if (all_elm.length > 3) pan_zoom.fit(); 
+            $('#loader').fadeTo(500, 0,function() {
+              $('#loader').hide()
+            });
           },
         });
       };

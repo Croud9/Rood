@@ -98,7 +98,7 @@ function connect_partners( box, v_line_p, num_partner, start_size ) {
   const v_line_partner = line({ type: 'path', x: box.x + box.width / 2, y: box.y, x2: box.x + box.width / 2, y2: v_line.y })
   const connect_partners = line({ type: 'path', x: v_line.x, y: v_line.y, x2: v_line_partner.x, y2: v_line_partner.y })
   const connect_for_child = line({ type: 'v', x: box.x - 50, y: connect_partners.y2, len: 200 - start_size + step_size * num_partner })
-  svg.text(connect_for_child.x - 8, connect_for_child.y + 7, '❤').addClass('snap_elm');
+  svg.text(connect_for_child.x - 8, connect_for_child.y + 7, '❤').attr({ fill: "#680303" }).addClass('snap_elm');
   return connect_for_child
 };
 
