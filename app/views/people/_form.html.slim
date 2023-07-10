@@ -15,15 +15,15 @@
       = f.text_area :description
     li
       = f.label :family, 'Семья'
-      = f.select :family, options_from_collection_for_select(@families, :id, :surname, @person.family), { prompt: "Please select" }
+      = f.select :family, options_from_collection_for_select(@families, :id, :surname, @person.family), { prompt: "Выберите" }
     li
       = f.label :father, 'Отец'
-      = f.select :father, options_from_collection_for_select(@people, :id, :name, @person.father), { prompt: "Please select"}
+      = f.select :father, options_from_collection_for_select(@people, :id, :name, @person.father), { prompt: "Выберите"}
     li
       = f.label :mother, 'Мать'
-      = f.select :mother, options_from_collection_for_select(@people, :id, :name, @person.mother), { prompt: "Please select"}
+      = f.select :mother, options_from_collection_for_select(@people, :id, :name, @person.mother), { prompt: "Выберите"}
     li
       = f.label :married_on, 'В браке с'
-      = f.select :married_on, options_from_collection_for_select(@people, :id, :name, @person.married_on), { prompt: "Please select", include_hidden: false }, { multiple: true, size: 10}
+      = f.select :married_on, options_from_collection_for_select(@people, :id, :name, @person.married_on), { prompt: "Выберите", include_hidden: false }, { multiple: true, size: 10}
     li      
       = f.submit 'Сохранить', class: 'btn'

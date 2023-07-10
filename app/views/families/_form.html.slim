@@ -1,0 +1,9 @@
+= form_with class: "form-style", model: @family do |f|
+  h1 Новый род
+  ul 
+    li
+      = f.label :surname, 'Фамилия'
+      = f.text_field :surname
+    li  
+      = f.submit 'Сохранить', class: 'btn'
+  

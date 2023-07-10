@@ -5,3 +5,4 @@ import jquery from 'jquery'
 window.$ = jquery
 import "./family_tree"
 import "./style"
+import "./load_family"

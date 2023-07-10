@@ -15,7 +15,7 @@ class PeopleController < ApplicationController
   end
 
   def edit
-    @people = Person.all
+    @people = Person.where(family: @person.family)
     @families = Family.all
   end
 
