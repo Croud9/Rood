@@ -1,6 +1,9 @@
 h3 Люди
 = link_to 'Назад', trees_path, class: 'btn'
 p = link_to 'Новый человек', new_person_path, class: 'btn'
+div class='single_select'
+  = label_tag  :family, 'Семья'
+  = select_tag :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Выберите" }
 
 table
   thead
@@ -14,18 +17,4 @@ table
       th Мать
       th Партнер
       th
-  tbody
-    - @people.each do |person|
-      tr
-        td = link_to "#{person.name}", person
-        td = "#{person.description}"
-        td = "#{person.birth_date}"
-        td = "#{person.death_date}"
-        td = "#{Family.find(person.family).surname if person.family.present?}"
-        td = "#{Person.find(person.father).name if person.father.present?}"
-        td = "#{Person.find(person.mother).name if person.mother.present?}"
-        td = "#{Person.find(person.married_on).map{ |p| p.name} if person.married_on.present? && person.married_on[0] != ''}"
-        td 
-          = link_to 'Удалить', person, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }
-          br 
-          = link_to 'Изменить', edit_person_path(person)
+  = render 'table', resource: @people 

@@ -3,6 +3,7 @@ class PeopleController < ApplicationController
 
   def index
     @people = Person.all.order_by(family: :desc)
+    @families = Family.all
   end
 
   def show

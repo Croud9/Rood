@@ -8,4 +8,5 @@ $('#person_married_on').append($('<option>Выберите</option>'));
   $('#person_father').append($('<option value="<%= person.id %>"> <%= person.name %> </option>'));
   $('#person_mother').append($('<option value="<%= person.id %>"> <%= person.name %> </option>'));
   $('#person_married_on').append($('<option value="<%= person.id %>"> <%= person.name %> </option>'));
+  $("#table_of_people tr").remove();
 <% end %>

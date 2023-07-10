@@ -6,3 +6,4 @@ window.$ = jquery
 import "./family_tree"
 import "./style"
 import "./load_family"
+import "./people"
