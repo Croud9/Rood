@@ -33,7 +33,7 @@ function draw_tree( svgSnap, data ) {
         draw_child(tree, people, last_ids, left_box, connect_for_child)
       } else {
         //Без Родственников
-        const bbox1 = draw_box(elements.x2 + 500, elements.y, tree.name, tree.birth_date, tree.death_date)
+        const bbox1 = draw_box(elements.x2 + 500, elements.y, tree)
       };
     };
   })
@@ -56,25 +56,25 @@ function draw_child( partner, people, last_ids, box_parent, line_from_parents ) 
     } else { 
       //Ребенок
       let box_x = bbox_child ? bbox_child.x - 400 : box_parent.x
-      bbox_child = draw_box(box_x, box_parent.y2 + 150, child.name, child.birth_date, child.death_date)
+      bbox_child = draw_box(box_x, box_parent.y2 + 150, child)
       line({ type: 'path', x: line_from_parents.x2, y: line_from_parents.y2, x2: bbox_child.x + 150, y2: bbox_child.y })
     }
   })
 };
 
-function draw_box( x, y, name, birth, death ) {
-  birth = birth ? birth : '❓'
-  death = death ? death : '❓'
-  const rect_with_text = svg.rect(x, y, 300, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5 }).addClass('snap_elm')
+function draw_box( x, y, person ) {
+  const birth = person.birth_date ? person.birth_date : '❓'
+  const death = person.death_date ? "†" + person.death_date : ''
+  const rect_with_text = svg.rect(x, y, 300, 100, 10).attr({ fill: "#fc0", fillOpacity: 0.5, id: person.id }).addClass('snap_elm')
   const bb_rect = rect_with_text.getBBox();
-  svg.text(bb_rect.x + 10, bb_rect.y + 20, name).addClass('snap_elm');
-  svg.text(bb_rect.x + 10, bb_rect.y2 - 10, "*" + birth + ' ' + "†" + death).addClass('snap_elm');
+  svg.text(bb_rect.x + 10, bb_rect.y + 20, person.name).addClass('snap_elm');
+  svg.text(bb_rect.x + 10, bb_rect.y2 - 10, "*" + birth + ' ' + death).addClass('snap_elm');
   return bb_rect
 };
 
 function draw_family( start_x, start_y, partner, partner2 = null, line_from_parents = null ) {
-  const bbox1 = draw_box(start_x, start_y, partner.name, partner.birth_date, partner.death_date)
-  const bbox2 = partner2 ? draw_box(bbox1.x2 + 100, bbox1.y, partner2.name, partner2.birth_date, partner2.death_date) :
+  const bbox1 = draw_box(start_x, start_y, partner)
+  const bbox2 = partner2 ? draw_box(bbox1.x2 + 100, bbox1.y, partner2) :
                             svg.text(bbox1.x2 + 100, bbox1.y + 55, '❌').addClass('snap_elm').getBBox();
   if (line_from_parents) line({ type: 'path', x: line_from_parents.x2, y: line_from_parents.y2, x2: bbox1.x + 150, y2: bbox1.y })
   const connect_partners = line({ type: 'path', x: bbox1.x2, y: bbox1.y + 50, x2: bbox2.x, y2: bbox2.y + bbox2.height / 2 })
@@ -121,7 +121,7 @@ function draw_person_with_partner( person, people, last_ids, box_parent, line_fr
     const box_x = offest_x( bbox_child_married, partner, box_parent )
     last_ids.push(partner.id)
     if ( num_partner > 0 ) {
-      const bbox_partner = draw_box(box_x, y_parent_box, partner.name, partner.birth_date, partner.death_date)
+      const bbox_partner = draw_box(box_x, y_parent_box, partner)
       const connect_for_child = connect_partners(bbox_partner, v_line, num_partner, start_size);
       draw_child(partner, people, last_ids, bbox_partner, connect_for_child)
       difference = diff_arrays(difference, partner.children);

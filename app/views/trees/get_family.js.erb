@@ -1,9 +1,9 @@
 $('#person_father').empty(); 
 $('#person_mother').empty(); 
 $('#person_married_on').empty(); 
-$('#person_father').append($('<option>Выберите</option>'));
-$('#person_mother').append($('<option>Выберите</option>'));
-$('#person_married_on').append($('<option>Выберите</option>'));
+$('#person_father').append($('<option value="">Выберите</option>'));
+$('#person_mother').append($('<option value="">Выберите</option>'));
+$('#person_married_on').append($('<option value="">Выберите</option>'));
 <% @people.each do |person|%>
   $('#person_father').append($('<option value="<%= person.id %>"> <%= person.name %> </option>'));
   $('#person_mother').append($('<option value="<%= person.id %>"> <%= person.name %> </option>'));

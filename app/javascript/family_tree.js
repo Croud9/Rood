@@ -39,6 +39,38 @@ document.addEventListener("turbo:load", function() {
             $('#loader').fadeTo(500, 0,function() {
               $('#loader').hide()
             });
+            
+            var original_size = 40;
+            var hover_size = 24;
+            var animation_time = 250;
+            $.each(svg.selectAll("rect").items, function() {
+
+              this.attr({
+                 origX:  this.attr('x'),
+                 origY:  this.attr('y'),
+                 modX:  parseInt(this.attr('x')) + ((original_size-hover_size)/2),
+                 modY:  parseInt(this.attr('y')) + ((original_size-hover_size)/2)
+              });
+          
+              this.mouseover(function() {
+                  this.animate({
+                      x: parseInt(this.attr('modX')),
+                      y: parseInt(this.attr('modY')),
+                      width: hover_size,
+                      height: hover_size
+                  }, animation_time, mina.bounce);
+              }).mouseout(function() {
+                  this.stop();
+                  this.animate({
+                      x: parseInt(this.attr('origX')),
+                      y: parseInt(this.attr('origY')),
+                      width: original_size,
+                      height: original_size
+                  }, animation_time*5, mina.bounce);
+              }).click(function() {
+                  alert('The RECT with the ID: "' + this.attr('id') + '", has the style attributes "' + this.attr('style') + '"');
+              });
+          });
           },
         });
       };

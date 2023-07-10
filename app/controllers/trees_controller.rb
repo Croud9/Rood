@@ -19,7 +19,11 @@ class TreesController < ApplicationController
     end
     respond_to do |format|
       format.js
-      format.html { render turbo_stream: turbo_stream.replace("table_of_people", partial: "people/table", locals: { resource: @people })  }
+      format.html { render turbo_stream: turbo_stream.replace(
+        "table_of_people", 
+        partial: "people/table", 
+        locals: { resource: params[:id] == '' ? Person.all : @people }
+      ) }
       format.json { render json: arr_people }
     end
   end

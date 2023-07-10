@@ -3,7 +3,7 @@ h3 Люди
 p = link_to 'Новый человек', new_person_path, class: 'btn'
 div class='single_select'
   = label_tag  :family, 'Семья'
-  = select_tag :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Выберите" }
+  = select_tag :family, options_from_collection_for_select(@families, :id, :surname), { prompt: "Все" }
 
 table
   thead
