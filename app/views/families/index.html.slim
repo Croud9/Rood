@@ -13,4 +13,7 @@ table
       tr
         td = "#{family.surname}"
         td = "#{ Person.where(family: family.id.to_s).map { |p| p.name } }"
-        td = link_to 'Удалить', family, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }
+        td 
+          = link_to 'Удалить', family, data: { turbo_method: :delete, turbo_confirm: 'Вы уверены?' }
+          br 
+          = link_to 'Изменить', edit_family_path(family)
